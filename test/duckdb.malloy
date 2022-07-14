@@ -1,0 +1,12 @@
+sql: covid is ||
+  select * from 'https://raw.githubusercontent.com/kj-9/covid19jp/master/data-raw/dist/jp_daily.csv'
+;;
+
+
+source: airports is from_sql(covid) {
+  measure: _count__line_chart is count()
+  query: _dashboard is {
+    group_by: tests
+    aggregate: _count__line_chart
+  }
+}
