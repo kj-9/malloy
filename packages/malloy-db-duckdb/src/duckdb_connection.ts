@@ -62,9 +62,9 @@ export class DuckDBConnection implements Connection, PersistSQLResults {
       }
     );
     this.connection = this.database.connect();
-    if (workingDirectory) {
-      this.runDuckDBQuery(`SET FILE_SEARCH_PATH='${workingDirectory}'`);
-    }
+
+    this.runDuckDBQuery("INSTALL 'httpfs'");
+    this.runDuckDBQuery("LOAD 'httpfs'");
   }
 
   get dialectName(): string {
