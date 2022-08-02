@@ -82,6 +82,9 @@ export class DuckDBConnection implements Connection, PersistSQLResults {
       if (this.workingDirectory) {
         this.runDuckDBQuery(`SET FILE_SEARCH_PATH='${this.workingDirectory}'`);
       }
+      await this.runDuckDBQuery("INSTALL 'httpfs'");
+      await this.runDuckDBQuery("LOAD 'httpfs'");
+
       // TODO: This is where we will load extensions once we figure
       // out how to better support them.
       // await this.runDuckDBQuery("INSTALL 'json'");
